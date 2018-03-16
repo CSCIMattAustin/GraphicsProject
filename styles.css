@@ -1,0 +1,51 @@
+/*.wrapper{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}*/
+
+/*.gameArea canvas {
+    canvas {
+    padding: 0;
+    margin: auto;
+    display: block;
+}*/
+
+
+.roundInfo{
+    width: 15%;
+    text-align: center;
+    float: left;
+    
+}
+
+.playerInfo{
+    width: 15%;
+    text-align: center;
+    float: right;
+}
+
+.gameplayControls{
+    width: 2%;
+    align-content: center;
+    vertical-align: bottom;
+}
+
+.towerArea{
+    width: 2%;
+    float: right;
+    vertical-align: bottom;
+}
+
+.foreground{
+    align-content: center;
+    background-color: aliceblue;
+    padding: 0;
+    margin: auto;
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
