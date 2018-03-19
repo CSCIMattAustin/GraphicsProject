@@ -1,34 +1,36 @@
-"use strict";
+'use strict';
 
 var canvas;
 var gl;
 var points;
 var vertices = [];
 var offset = 0.8;
- function path(){
-    vertices.push(vec2(-offset,1));
-    vertices.push(vec2(1,-offset));
-    vertices.push(vec2(offset,-1));
-    vertices.push(vec2(-offset,1));
-    vertices.push(vec2(-1,offset));
-    vertices.push(vec2(offset,-1));
-    vertices.push(vec2(-1,1));
-    vertices.push(vec2(-offset,1));
-    vertices.push(vec2(-1,offset));
+function path() {
+    //triangles for path
+    vertices.push(vec2(-offset, 1));
+    vertices.push(vec2(1, -offset));
+    vertices.push(vec2(offset, -1));
+    vertices.push(vec2(-offset, 1));
+    vertices.push(vec2(-1, offset));
+    vertices.push(vec2(offset, -1));
+    vertices.push(vec2(-1, 1));
+    vertices.push(vec2(-offset, 1));
+    vertices.push(vec2(-1, offset));
     vertices.push(vec2(1, -1));
     vertices.push(vec2(1, -offset));
-    vertices.push(vec2(offset,-1));
- }
+    vertices.push(vec2(offset, -1));
+}
 window.onload = function init() {
-    canvas = document.getElementById( "gl-canvas" );
+    canvas = document.getElementById("gl-canvas");
 
-    canvas.width = window.innerWidth * .85;
-    canvas.height = window.innerHeight * .85;
-    document.getElementById("gl-canvas").style.opacity = "0.3";
-    gl = WebGLUtils.setupWebGL( canvas );
-    if (!gl) { 
-        alert( "WebGL isn't available" );
-	   $('#roundInfo').attr('float', 'right');		 
+    canvas.width = window.innerWidth * 0.85;
+    canvas.height = window.innerHeight * 0.85;
+    //make canvas opaque so that background includes cat backgound
+    document.getElementById("gl-canvas").style.opacity = "0.4";
+    gl = WebGLUtils.setupWebGL(canvas);
+    if (!gl) {
+        alert("WebGL isn't available");
+	   $('#roundInfo').attr('float', 'right');
     } 
      
     $('#roundInfo').click(function () {
@@ -56,7 +58,7 @@ window.onload = function init() {
 	}) ;
     //  Configure WebGL
     //
-    path();
+    path();//make path
     gl.viewport( 0, 0, canvas.width, canvas.height );
     
 //  Load shaders and initialize attribute buffers
