@@ -35,12 +35,12 @@ void main(){
         </canvas>
         <br>
         <div id="gameplayControls" class="gameplayControls" style="background-color: yellow">
-            <spanid="playPause">play/pause</span>
+            <span id="playPause">play/pause</span>
         </div>
         <div id="towerArea" class="towerArea" style="background-color: chartreuse">
-            <p style="text-align:center;" id="tower1">t1</p>
-            <p style="text-align:center;"  id="tower2">t2</p>
-            <p style="text-align:center;" id="tower3">t3</p>
+            <p id="tower1">t1</p>
+            <p id="tower2">t2</p>
+            <p id="tower3">t3</p>
         </div>
     </div>
 <div>
