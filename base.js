@@ -1,4 +1,4 @@
-x1"use strict";
+"use strict";
 
 var canvas;
 var gl;
@@ -25,12 +25,13 @@ window.onload = function init() {
     canvas.width = window.innerWidth * .85;
     canvas.height = window.innerHeight * .85;
     document.getElementById("gl-canvas").style.opacity = "0.3";
-    gl = W ebGLUtils.setupWebGL( canvas );
-    if (  !gl ) { alert( "WebGL isn't available" );
-	 $('#roundInfo').attr('float', 'right');		 
+    gl = WebGLUtils.setupWebGL( canvas );
+    if (!gl) { 
+        alert( "WebGL isn't available" );
+	   $('#roundInfo').attr('float', 'right');		 
     } 
      
-    $('# roundInfo').click(function () {
+    $('#roundInfo').click(function () {
 	    alert('you click on round info'); 
 	} );
       
@@ -52,7 +53,7 @@ window.onload = function init() {
     
     $('#tower3').click(function () {
 	    alert('you clicked tower3');
-	}) 
+	}) ;
     //  Configure WebGL
     //
     path();
