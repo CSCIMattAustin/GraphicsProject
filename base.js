@@ -1,4 +1,4 @@
-"use strict";
+x1"use strict";
 
 var canvas;
 var gl;
@@ -24,63 +24,40 @@ window.onload = function init() {
 
     canvas.width = window.innerWidth * .85;
     canvas.height = window.innerHeight * .85;
-      document.getElementById("gl-canvas").style.opacity = "0.3";
-    gl = WebGLUtils.setupWebGL( canvas );
-    if ( !gl ) { alert( "WebGL isn't available" );
-                
-    $('#roundInfo').attr('float', 'right');
-
-    /*var backround = new Image();
-    background.src = "http://www.flipcat.us/tag/cat-universe-iphone-wallpaper/"
-                
-    background.onload = function () {
-        canvas.drawImage(backgroud,0,0);
-    }*/
-		 
-}
+    document.getElementById("gl-canvas").style.opacity = "0.3";
+    gl = W ebGLUtils.setupWebGL( canvas );
+    if (  !gl ) { alert( "WebGL isn't available" );
+	 $('#roundInfo').attr('float', 'right');		 
+    } 
+     
+    $('# roundInfo').click(function () {
+	    alert('you click on round info'); 
+	} );
+      
+    $('#playerInfo').click(function () {
+	      alert('you clicked on player info');
+	});  
     
-$('#roundInfo').click(function () {
-   alert('you click on round info'); 
-});
+    $('#playPause').click(function () {
+	    alert('you clicked the play/pause area');
+	});
     
-$('#playerInfo').click(function () {
-    alert('you clicked on player info');
-});
+    $('#tower1').click(function () {
+	    alert('you clicked tower1');
+	});
     
-$('#playPause').click(function () {
-    alert('you clicked the play/pause area');
-});
+    $('#tower2').click(function () {
+	    alert('you clicked tower2');
+	});
     
-$('#tower1').click(function () {
-    alert('you clicked tower1');
-});
-    
-$('#tower2').click(function () {
-    alert('you clicked tower2');
-});
-
-$('#tower3').click(function () {
-    alert('you clicked tower3');
-});
-    
-// Three Vertices
-
-/*var vertices = [
-        vec2( -1, .3 ),
-        vec2(  -.8,  .4 ),
-        vec2(  -1, .7 ),
-        vec2( -1, .7 ),
-        vec2(  -.8,  .4 ),
-        vec2(  -.8, .5 )
-	];*/
-    
-   
+    $('#tower3').click(function () {
+	    alert('you clicked tower3');
+	}) 
     //  Configure WebGL
     //
     path();
     gl.viewport( 0, 0, canvas.width, canvas.height );
-    //gl.clearColor( 0.1, 0.1, 0.1, 1.0 );
-    //canvas.clearRect(0,0,canvas.width,canvas.height);
+    
 //  Load shaders and initialize attribute buffers
 
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
