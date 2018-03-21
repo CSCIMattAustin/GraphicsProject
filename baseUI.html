@@ -7,7 +7,7 @@ void main(){
   gl_Position = vPosition;
 }
 </script>
-<script id="fragment-shader" type="x-shader/x-fragment">
+<script id="fragment-shader" type="x-shader/x-fragment"> 
 precision mediump float;
 void main(){
     gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );
@@ -22,11 +22,11 @@ void main(){
 </head>
 <body style="background: url('background.jpg')">
     <div class="gameArea">
-        <div id="roundInfo" class="roundInfo" style="background-color: green">
+        <div id="roundInfo" class="roundInfo">
             <span id="enemiesRemaining">enemies</span>
             <span id="timeInRound">timeInRound</span>
         </div>
-        <div id="playerInfo" class="playerInfo" style="background-color: red">
+        <div id="playerInfo" class="playerInfo">
             <span id="remainingHP">HP</span>
             <span id="currencyAvailable">$888</span>
         </div>
@@ -34,13 +34,13 @@ void main(){
             Oops ... your browser doesn't support the HTML5 canvas element
         </canvas>
         <br>
-        <div id="gameplayControls" class="gameplayControls" style="background-color: yellow">
+        <div id="gameplayControls" class="gameplayControls">
             <spanid="playPause">play/pause</span>
         </div>
-        <div id="towerArea" class="towerArea" style="background-color: chartreuse">
-            <p style="text-align:center;" id="tower1">t1</p>
-            <p style="text-align:center;"  id="tower2">t2</p>
-            <p style="text-align:center;" id="tower3">t3</p>
+        <div id="towerArea" class="towerArea">
+            <p id="tower1">t1</p>
+            <p id="tower2">t2</p>
+            <p id="tower3">t3</p>
         </div>
     </div>
 <div>

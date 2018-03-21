@@ -15,18 +15,22 @@ function path() {
     vertices.push(vec2(offset, -1));
     vertices.push(vec2(-1, 1));
     vertices.push(vec2(-offset, 1));
-    vertices.push(vec2(-1, offset));
+    vertices.push(vec2(-1, offset)); 
     vertices.push(vec2(1, -1));
     vertices.push(vec2(1, -offset));
     vertices.push(vec2(offset, -1));
 }
 window.onload = function init() {
+    var currencyAvailable = $('#currencyAvailable').html('$' + (Math.random() * 10000 % 1000).toFixed(2));
+    
     canvas = document.getElementById("gl-canvas");
 
     canvas.width = window.innerWidth * 0.85;
     canvas.height = window.innerHeight * 0.85;
     //make canvas opaque so that background includes cat backgound
-    document.getElementById("gl-canvas").style.opacity = "0.4";
+    //Can be simplified using jquery like so:
+    //$(canvas).css('opacity', 0.4);
+    //document.getElementById("gl-canvas").style.opacity = "0.4";
     gl = WebGLUtils.setupWebGL(canvas);
     if (!gl) {
         alert("WebGL isn't available");
@@ -41,7 +45,7 @@ window.onload = function init() {
 	      alert('you clicked on player info');
 	});  
     
-    $('#playPause').click(function () {
+    $('#gameplayControls').click(function () {
 	    alert('you clicked the play/pause area');
 	});
     
