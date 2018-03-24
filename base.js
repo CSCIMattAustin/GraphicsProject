@@ -25,6 +25,41 @@ window.onload = function init() {
     
     canvas = document.getElementById("gl-canvas");
 
+<<<<<<< HEAD
+    /*var background = new Image();
+    background.src = "http://www.flipcat.us/tag/cat-universe-iphone-wallpaper/"
+                
+    background.onload = function () {
+        canvas.drawImage(backgroud,0,0);
+    }*/
+		 
+}
+    
+$('#roundInfo').click(function () {
+   alert('you click on round info'); 
+});
+    
+$('#playerInfo').click(function () {
+    alert('you clicked on player info');
+});
+    
+$('#playPause').click(function () {
+    alert('you clicked the play/pause area');
+});
+
+    var tower1Clicked = false;
+$('#tower1').click(function () {
+    alert('you clicked tower1');
+    tower1Clicked = true;
+    
+});
+
+    $('canvas').click(function() {
+	if(towerclicked){
+	    towerposition = mousePosition
+	}
+    });
+=======
     canvas.width = window.innerWidth * 0.85;
     canvas.height = window.innerHeight * 0.85;
     //make canvas opaque so that background includes cat backgound
@@ -52,6 +87,7 @@ window.onload = function init() {
     $('#tower1').click(function () {
 	    alert('you clicked tower1');
 	});
+>>>>>>> 3c7e47922a9aea8b2892dff24063fd55d2979b1b
     
     $('#tower2').click(function () {
 	    alert('you clicked tower2');
