@@ -42,24 +42,62 @@ function startBabylonJs(){
         
         // var plane = BABYLON.MeshBuilder.CreatePlane("plane", {}, scene);
         // plane.applyToMesh(simpleMesh);
-        
-        var cube = BABYLON.Mesh.CreateBox("cube", 2, scene);
-        
-        cube.position.y += 3;
-        
+
+	var base = BABYLON.Mesh.CreateSphere("sphere", 16, 12, scene);
+
+	base.position.y += 6;
+	base.position.x -= 50;
+	base.position.z += 50;
+
+	var numCube = 10;
+	
+	var cubes = [];
+	for(var i = 0; i < numCube; i++){
+            var cube = BABYLON.Mesh.CreateBox("cube", 2, scene);
+	
+            cube.position.y += 2;
+	    cube.position.x += 50;
+	    cube.position.z -= 50;
+	    cubes.push(cube);
+	}
+	
+	var makeCtr = 0;
+	var makeID = setInterval(function (){
+	    move(cubes[makeCtr]);
+	    makeCtr++;
+	    console.log('counter', makeCtr);
+	    if(makeCtr === numCube)
+		clearInterval(makeID);
+	}, 1500);
+
+
+	function move (cube){
+	    var moveCtr = 0;
+	    var moveid = setInterval(function(){
+		cube.position.x -= 1;
+		cube.position.z += 1;
+		moveCtr++;
+		if(moveCtr === 100){
+		    clearInterval(moveid);
+		}
+	    }, 300);
+	}
+	
+	
+	
         //cube.position.y += 5;
         cube.checkCollisions = true;
         
         var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 10, -5));
-        light.diffuse = BABYLON.Color3.Red();
+        light.diffuse = BABYLON.Color3.White();
         
         var hemi = new BABYLON.HemisphericLight("hLight", BABYLON.Vector3.Zero(), scene);
         var ground = BABYLON.Mesh.CreateGround("floor", 100, 100, 100, scene);
         ground.checkCollisions = true;
         
         engine.runRenderLoop(function(){
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
+        //    cube.rotation.x += 0.01;
+          //  cube.rotation.y += 0.01;
             
             scene.render();
         });
