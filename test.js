@@ -43,18 +43,29 @@ function startBabylonJs(){
         // var plane = BABYLON.MeshBuilder.CreatePlane("plane", {}, scene);
         // plane.applyToMesh(simpleMesh);
 
-	var base = BABYLON.Mesh.CreateSphere("sphere", 16, 12, scene);
-
+	var base = BABYLON.Mesh.CreateSphere("base", 16, 12, scene);
+	var im = new BABYLON.StandardMaterial("space.jpeg", scene);
+	base.material = im;
+	//im.reflectionTexture.coordinatesMode = BABYLON.Texture.SPHERICAL_MODE;
+	im.bumpTexture = new BABYLON.Texture("./world.jpg", scene);
+	im.specularTexture = new BABYLON.Texture("world.jpg", scene);
+	im.emissiveTexture = new BABYLON.Texture("space.jpeg", scene);
+	im.ambientTexture = new BABYLON.Texture("space.jpeg", scene);
+	//im.diffuseTexture.hasAlpha = true;
 	base.position.y += 6;
 	base.position.x -= 50;
 	base.position.z += 50;
 
-	var numCube = 10;
+	var numCube = 15;
 	
+
 	var cubes = [];
 	for(var i = 0; i < numCube; i++){
-            var cube = BABYLON.Mesh.CreateBox("cube", 2, scene);
-	
+            var cube = BABYLON.Mesh.CreateBox("", 2, scene);
+	var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
+	    myMaterial.emissiveColor = new BABYLON.Color3(0, 0, 0);
+	    myMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+	    cube.material=myMaterial;
             cube.position.y += 2;
 	    cube.position.x += 50;
 	    cube.position.z -= 50;
@@ -80,7 +91,7 @@ function startBabylonJs(){
 		if(moveCtr === 100){
 		    clearInterval(moveid);
 		}
-	    }, 300);
+	    }, 500);
 	}
 	
 	
@@ -88,13 +99,19 @@ function startBabylonJs(){
         //cube.position.y += 5;
         cube.checkCollisions = true;
         
-        var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 10, -5));
+        var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 2, -10));
         light.diffuse = BABYLON.Color3.White();
         
         var hemi = new BABYLON.HemisphericLight("hLight", BABYLON.Vector3.Zero(), scene);
         var ground = BABYLON.Mesh.CreateGround("floor", 100, 100, 100, scene);
         ground.checkCollisions = true;
-        
+        var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
+
+	
+	//myMaterial.specularColor = new BABYLON.Color3(0.5, 0., 0.);
+	myMaterial.emissiveColor = new BABYLON.Color3(1, 0, 0);
+	//myMaterial.ambientColor = new BABYLON.Color3(0.23, 0.98, 0.53);
+	ground.material = myMaterial;
         engine.runRenderLoop(function(){
         //    cube.rotation.x += 0.01;
           //  cube.rotation.y += 0.01;
@@ -151,30 +168,3 @@ function CreatePlace(size){
     
 }
 
-
-// var createScene = function (){
-//     //Creates basic scene
-//     var scene = new BABYLON.Scene(engine);
-
-
-//     var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
-
-
-//     camera.setTarger(new BABYLON.Vector3.Zero());
-
-//     camera.attachControl(canvas, false);
-
-//     var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
-
-//     light.intensity = 0.7;
-
-//     var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
-
-//     sphere.position.y = 1;
-
-//     var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
-
-//     return scene;
-
-
-// }

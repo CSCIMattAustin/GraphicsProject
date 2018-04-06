@@ -6,7 +6,6 @@ var points;
 var vertices = [];
 var offset = 0.8;
 function path() {
-
     vertices.push(vec2(-offset, 1));
     vertices.push(vec2(1, -offset));
     vertices.push(vec2(offset, -1));
@@ -20,6 +19,7 @@ function path() {
     vertices.push(vec2(1, -offset));
     vertices.push(vec2(offset, -1));
 }
+
 window.onload = function init() {
     var currencyAvailable = $('#currencyAvailable').html('$' + (Math.random() * 10000 % 1000).toFixed(2));
     
