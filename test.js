@@ -7,9 +7,6 @@ var scene;
 document.addEventListener("DOMContentLoaded", startBabylonJs, false);
 
 function startBabylonJs(){
-    
-    
-
     if(BABYLON.Engine.isSupported()){
         canvas = document.getElementById("renderCanvas");
         engine = new BABYLON.Engine(canvas, true);
@@ -47,8 +44,8 @@ function startBabylonJs(){
 	var im = new BABYLON.StandardMaterial("space.jpeg", scene);
 	base.material = im;
 	//im.reflectionTexture.coordinatesMode = BABYLON.Texture.SPHERICAL_MODE;
-	im.bumpTexture = new BABYLON.Texture("./world.jpg", scene);
-	im.specularTexture = new BABYLON.Texture("world.jpg", scene);
+	im.bumpTexture = new BABYLON.Texture("space.jpeg", scene);
+	im.specularTexture = new BABYLON.Texture("space.jpeg", scene);
 	im.emissiveTexture = new BABYLON.Texture("space.jpeg", scene);
 	im.ambientTexture = new BABYLON.Texture("space.jpeg", scene);
 	//im.diffuseTexture.hasAlpha = true;
@@ -62,10 +59,12 @@ function startBabylonJs(){
 	var cubes = [];
 	for(var i = 0; i < numCube; i++){
             var cube = BABYLON.Mesh.CreateBox("", 2, scene);
-	var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
-	    myMaterial.emissiveColor = new BABYLON.Color3(0, 0, 0);
-	    myMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-	    cube.material=myMaterial;
+	var tex = new BABYLON.StandardMaterial("myMaterial", scene);
+	    tex.bumpTexture = new BABYLON.Texture("uganda.jpg", scene);
+	    tex.specularTexture = new BABYLON.Texture("uganda.jpg", scene);
+	    tex.emissiveTexture = new BABYLON.Texture("uganda.jpg", scene);
+	    tex.ambientTexture = new BABYLON.Texture("uganda.jpg", scene);
+	    cube.material=tex;
             cube.position.y += 2;
 	    cube.position.x += 50;
 	    cube.position.z -= 50;
