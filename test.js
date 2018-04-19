@@ -16,16 +16,20 @@ function startBabylonJs(){
         });
         
         scene = new BABYLON.Scene(engine);
-        
+        //scene.ambientColor = new BABYLON.Color3(1, 1, 1);
         //var cam  = new BABYLON.FreeCamera("freecam", new BABYLON.Vector3(0,2, -10), scene);
-        var skybox = BABYLON.Mesh.CreateBox("skyBox", 100.0, scene);
+        var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
 	var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
 	skyboxMaterial.backFaceCulling = false;
 	skyboxMaterial.disableLighting = true;
 	skybox.material = skyboxMaterial;
 
-
-	skybox.infiniteDistance = true;
+	  var skull = BABYLON.SceneLoader.ImportMesh("", "textures/", "skull.babylon", scene, function (newMeshes) {
+                // Set the target of the camera to the first imported mesh
+                //camera.target = newMeshes[0];
+          });
+	skull.setPositionWithLocalVector(new BABYLON.Vector3(6,-50,50));
+	//skybox.infiniteDistance = true;
 
 	//skyboxMaterial.disableLighting = true;
 
@@ -68,7 +72,11 @@ function startBabylonJs(){
         base.position.z += 50;
         
         var numCube = 30;
-        
+        var cone = BABYLON.MeshBuilder.CreateCylinder("cone", {subdivision:4,arc:1,height:20,diameter: 10, tessellation: 50}, scene);
+	cone.position.x += 10;
+	cone.position.y += 10;
+	cone.position.z+=10;
+	
         var bigCube = BABYLON.Mesh.CreateBox("bigCube", 12, scene);
         bigCube.position.y += 6;
         bigCube.position.x += 50;
@@ -127,7 +135,7 @@ function startBabylonJs(){
         
         
         
-        var ground = BABYLON.Mesh.CreateGround("floor", 100, 100, 100, scene);
+        var ground = BABYLON.Mesh.CreateGround("floor", 500, 500, 100, scene);
         ground.checkCollisions = true;
 	//ground.material = im;
 	var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
@@ -137,8 +145,9 @@ function startBabylonJs(){
 	myMaterial.emissiveColor = new BABYLON.Color3(1, 0, 0);
 	myMaterial.ambientColor = new BABYLON.Color3(0.23, 0.98, 0.53);
 	ground.material = myMaterial;
-	var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 1, -10));
-        light.diffuse = BABYLON.Color3.White();
+	//var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 1, -10));
+        //light.diffuse = BABYLON.Color3.White();
+//	light.intensity = .2;
 	var hemi = new BABYLON.HemisphericLight("hLight", BABYLON.Vector3.Zero(), scene);
 	engine.runRenderLoop(function(){
             //    cube.rotation.x += 0.01;
