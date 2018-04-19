@@ -18,7 +18,21 @@ function startBabylonJs(){
         scene = new BABYLON.Scene(engine);
         
         //var cam  = new BABYLON.FreeCamera("freecam", new BABYLON.Vector3(0,2, -10), scene);
-        
+        var skybox = BABYLON.Mesh.CreateBox("skyBox", 100.0, scene);
+	var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+	skyboxMaterial.backFaceCulling = false;
+	skyboxMaterial.disableLighting = true;
+	skybox.material = skyboxMaterial;
+
+
+	skybox.infiniteDistance = true;
+
+	//skyboxMaterial.disableLighting = true;
+
+	skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene);
+	skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+	skybox.renderingGroupId = 0;
+
         var cam = new BABYLON.ArcRotateCamera("arcCam", 1, 0.8, 75, new BABYLON.Vector3(0,0,0), scene);
         cam.attachControl(canvas);
         cam.checkCollisions = true;
@@ -68,6 +82,7 @@ function startBabylonJs(){
 
         
         var cubes = [];
+
         for(var i = 0; i < numCube; i++){
             var cube = BABYLON.Mesh.CreateBox("", 2, scene);
             var tex = new BABYLON.StandardMaterial("myMaterial", scene);
@@ -88,8 +103,9 @@ function startBabylonJs(){
             makeCtr++;
             console.log('counter', makeCtr);
             if(makeCtr === numCube)
-            clearInterval(makeID);
+		clearInterval(makeID);
         }, 1500);
+	
         
         
         function move (cube){
@@ -109,20 +125,22 @@ function startBabylonJs(){
         //cube.position.y += 5;
         cube.checkCollisions = true;
         
-        var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 2, -10));
-        light.diffuse = BABYLON.Color3.White();
         
-        var hemi = new BABYLON.HemisphericLight("hLight", BABYLON.Vector3.Zero(), scene);
+        
         var ground = BABYLON.Mesh.CreateGround("floor", 100, 100, 100, scene);
         ground.checkCollisions = true;
-        var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
-        
-        
-        //myMaterial.specularColor = new BABYLON.Color3(0.5, 0., 0.);
-        myMaterial.emissiveColor = new BABYLON.Color3(1, 0, 0);
-        //myMaterial.ambientColor = new BABYLON.Color3(0.23, 0.98, 0.53);
-        ground.material = myMaterial;
-        engine.runRenderLoop(function(){
+	ground.material = im;/*
+			     //var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
+			     
+			     
+			     //myMaterial.specularColor = new BABYLON.Color3(0.5, 0., 0.);
+			     myMaterial.emissiveColor = new BABYLON.Color3(1, 0, 0);
+			     //myMaterial.ambientColor = new BABYLON.Color3(0.23, 0.98, 0.53);
+			     ground.material = myMaterial;*/
+	var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 1, -10));
+        light.diffuse = BABYLON.Color3.White();
+	var hemi = new BABYLON.HemisphericLight("hLight", BABYLON.Vector3.Zero(), scene);
+	engine.runRenderLoop(function(){
             //    cube.rotation.x += 0.01;
             //  cube.rotation.y += 0.01;
             
