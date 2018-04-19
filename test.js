@@ -129,14 +129,14 @@ function startBabylonJs(){
         
         var ground = BABYLON.Mesh.CreateGround("floor", 100, 100, 100, scene);
         ground.checkCollisions = true;
-	ground.material = im;/*
-			     //var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
+	//ground.material = im;
+	var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
 			     
 			     
-			     //myMaterial.specularColor = new BABYLON.Color3(0.5, 0., 0.);
-			     myMaterial.emissiveColor = new BABYLON.Color3(1, 0, 0);
-			     //myMaterial.ambientColor = new BABYLON.Color3(0.23, 0.98, 0.53);
-			     ground.material = myMaterial;*/
+	myMaterial.specularColor = new BABYLON.Color3(0.5, 0., 0.);
+	myMaterial.emissiveColor = new BABYLON.Color3(1, 0, 0);
+	myMaterial.ambientColor = new BABYLON.Color3(0.23, 0.98, 0.53);
+	ground.material = myMaterial;
 	var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 1, -10));
         light.diffuse = BABYLON.Color3.White();
 	var hemi = new BABYLON.HemisphericLight("hLight", BABYLON.Vector3.Zero(), scene);
