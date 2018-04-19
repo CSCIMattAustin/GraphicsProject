@@ -24,14 +24,14 @@ function startBabylonJs(){
 	skyboxMaterial.disableLighting = true;
 	skybox.material = skyboxMaterial;
 
-	  var skull = BABYLON.SceneLoader.ImportMesh("", "textures/", "skull.babylon", scene, function (newMeshes) {
+	  /*var skull = BABYLON.SceneLoader.ImportMesh("", "textures/", "skull.babylon", scene, function (newMeshes) {
                 // Set the target of the camera to the first imported mesh
                 //camera.target = newMeshes[0];
           });
 	skull.setPositionWithLocalVector(new BABYLON.Vector3(6,-50,50));
 	//skybox.infiniteDistance = true;
 
-	//skyboxMaterial.disableLighting = true;
+	//skyboxMaterial.disableLighting = true;*/
 
 	skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene);
 	skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
@@ -39,6 +39,7 @@ function startBabylonJs(){
 
         var cam = new BABYLON.ArcRotateCamera("arcCam", 1, 0.8, 75, new BABYLON.Vector3(0,0,0), scene);
         cam.attachControl(canvas);
+	cam.upperRadiusLimit = 300;
         cam.checkCollisions = true;
         //cam.applyGravity = true;
         
@@ -72,9 +73,9 @@ function startBabylonJs(){
         base.position.z += 50;
         
         var numCube = 30;
-        var cone = BABYLON.MeshBuilder.CreateCylinder("cone", {subdivision:4,arc:1,height:20,diameter: 10, tessellation: 50}, scene);
+        var cone = BABYLON.MeshBuilder.CreateCylinder("cone", {subdivision:4,arc:1,height:.1,diameter: 100, tessellation: 50}, scene);
 	cone.position.x += 10;
-	cone.position.y += 10;
+	cone.position.y = 0 ;
 	cone.position.z+=10;
 	
         var bigCube = BABYLON.Mesh.CreateBox("bigCube", 12, scene);
@@ -108,6 +109,7 @@ function startBabylonJs(){
         var makeCtr = 0;
         var makeID = setInterval(function (){
             move(cubes[makeCtr]);
+	    ouch(cubes[makeCtr], makeCtr);
             makeCtr++;
             console.log('counter', makeCtr);
             if(makeCtr === numCube)
@@ -127,7 +129,14 @@ function startBabylonJs(){
                 }
             }, 300);
         }
-        
+
+	function ouch (cube, num){
+	    setInterval(function(){
+		if(cube.intersectsMesh(cone, true)){
+		    console.log("cube " + num + " says ouch");
+		}
+	    }, 1000);
+	}
         
         
         //cube.position.y += 5;
