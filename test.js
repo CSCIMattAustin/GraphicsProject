@@ -14,8 +14,9 @@ function startBabylonJs(){
         window.addEventListener("resize", function(){
             engine.resize();
         });
-        
-        scene = new BABYLON.Scene(engine);
+	scene = new BABYLON.Scene(engine);
+	
+
         //scene.ambientColor = new BABYLON.Color3(1, 1, 1);
         //var cam  = new BABYLON.FreeCamera("freecam", new BABYLON.Vector3(0,2, -10), scene);
         var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
@@ -39,8 +40,57 @@ function startBabylonJs(){
 
         var cam = new BABYLON.ArcRotateCamera("arcCam", 1, 0.8, 75, new BABYLON.Vector3(0,0,0), scene);
         cam.attachControl(canvas);
-	cam.upperRadiusLimit = 300;
+	cam.upperRadiusLimit = 400;
         cam.checkCollisions = true;
+	var health =100;
+	var score =0;
+	var stats1="Stats";
+	var stats2 = "Health: " + health;
+	var stats3 = "Score: " + score;
+	var output = new BABYLON.MeshBuilder.CreatePlane("output", {width:35, height:15}, scene);
+	output.position.x=15;
+	output.position.z=70;
+	output.position.y=25;
+	output.parent = cam;
+	
+
+	var textureResolution = 512;
+	var textureGround = new BABYLON.DynamicTexture("dynamic texture", {width:512, height:256}, scene);   
+	var textureContext = textureGround.getContext();
+	
+	var materialGround = new BABYLON.StandardMaterial("Mat", scene);    			textureGround.bumpTexture = new BABYLON.Texture("uganda.jpg", scene);
+        textureGround.specularTexture = new BABYLON.Texture("uganda.jpg", scene);
+        textureGround.emissiveTexture = new BABYLON.Texture("uganda.jpg", scene);
+        textureGround.ambientTexture = new BABYLON.Texture("uganda.jpg", scene);
+	materialGround.diffuseTexture = textureGround;
+	output.material = materialGround;
+	
+    //Add text to dynamic texture
+	var font = "bold 20px monospace";
+
+//	textureGround.drawText(stats1, 20, 70, font, "green", textureGround, true, true);
+	function draw(h, s){
+	    var stats1="Stats";
+	    var stats2 = "Health: " + h;
+	    var stats3 = "Score: " + s;
+	    textureGround.drawText(stats2+"   " +stats3, 20, 100, font, "green", "red", true, true);
+	}
+	health =100;
+	score=0;
+	 var stats = setInterval(function (){
+             draw(health, score)
+        }, 0);
+	//textureGround.drawText(stats3, 20, 120, font, "green", "red", true, true);
+	output.alpha=0.1;
+
+//	var out=new BABYLON.DynamicTexture("dynamic texture", 2, scene, true);
+	//var context=output.getContext();
+//	output.material = out;
+	//out.specularColor = new BABYLON.Color3(0, 0, 0);
+	//output.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
+	//output.material.backFaceCulling = false;
+	//out.drawText("TEXT", 10, 10, "bold 140px verdana", "blue","red",true,true);
+	  
         //cam.applyGravity = true;
         
         // var assetManager = new BABYLON.AssetsManager(scene);
@@ -83,12 +133,12 @@ function startBabylonJs(){
         bigCube.position.x += 50;
         bigCube.position.z -= 50;
         var tex = new BABYLON.StandardMaterial("myMaterial", scene);
-        tex.bumpTexture = new BABYLON.Texture("world.png", scene);
-        tex.specularTexture = new BABYLON.Texture("world.png", scene);
-        tex.emissiveTexture = new BABYLON.Texture("world.png", scene);
-        tex.ambientTexture = new BABYLON.Texture("world.png", scene);
+        tex.bumpTexture = new BABYLON.Texture("textures/index.jpg", scene);
+        tex.specularTexture = new BABYLON.Texture("textures/index.jpg", scene);
+        tex.emissiveTexture = new BABYLON.Texture("textures/index.jpg", scene);
+        tex.ambientTexture = new BABYLON.Texture("textures/index.jpg", scene);
         bigCube.material = tex;
-
+	
         
         var cubes = [];
 
