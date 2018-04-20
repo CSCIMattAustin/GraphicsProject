@@ -40,7 +40,7 @@ function startBabylonJs(){
 
         var cam = new BABYLON.ArcRotateCamera("arcCam", 1, 0.8, 75, new BABYLON.Vector3(0,0,0), scene);
         cam.attachControl(canvas);
-	cam.upperRadiusLimit = 400;
+	cam.upperRadiusLimit = 250;
         cam.checkCollisions = true;
 	var health =100;
 	var score =0;
@@ -81,7 +81,7 @@ function startBabylonJs(){
              draw(health, score)
         }, 0);
 	//textureGround.drawText(stats3, 20, 120, font, "green", "red", true, true);
-	output.alpha=0.1;
+	//output.alpha=0.1;
 
 //	var out=new BABYLON.DynamicTexture("dynamic texture", 2, scene, true);
 	//var context=output.getContext();
@@ -110,13 +110,13 @@ function startBabylonJs(){
         // plane.applyToMesh(simpleMesh);
         
         var base = BABYLON.Mesh.CreateSphere("base", 16, 25, scene);
-        var im = new BABYLON.StandardMaterial("space.jpeg", scene);
+        var im = new BABYLON.StandardMaterial("textures/void.jpg", scene);
         base.material = im;
         //im.reflectionTexture.coordinatesMode = BABYLON.Texture.SPHERICAL_MODE;
-        im.bumpTexture = new BABYLON.Texture("space.jpeg", scene);
-        im.specularTexture = new BABYLON.Texture("space.jpeg", scene);
-        im.emissiveTexture = new BABYLON.Texture("space.jpeg", scene);
-        im.ambientTexture = new BABYLON.Texture("space.jpeg", scene);
+        im.bumpTexture = new BABYLON.Texture("textures/void.jpg", scene);
+        im.specularTexture = new BABYLON.Texture("textures/void.jpg", scene);
+        im.emissiveTexture = new BABYLON.Texture("textures/void.jpg", scene);
+        im.ambientTexture = new BABYLON.Texture("textures/void.jpg", scene);
         //im.diffuseTexture.hasAlpha = true;
         base.position.y += 6;
         base.position.x -= 50;
@@ -127,6 +127,14 @@ function startBabylonJs(){
 	cone.position.x += 10;
 	cone.position.y = 0 ;
 	cone.position.z+=10;
+	cone.alpha=0;
+	var tex1 = new BABYLON.StandardMaterial("myMaterial", scene);
+        tex1.bumpTexture = new BABYLON.Texture("textures/ground.png", scene);
+        tex1.specularTexture = new BABYLON.Texture("textures/ground.png", scene);
+        tex1.emissiveTexture = new BABYLON.Texture("textures/ground.png", scene);
+        tex1.ambientTexture = new BABYLON.Texture("textures/ground.png", scene);
+	tex1.aplha=0.;
+	cone.material = tex1;
 	
         var bigCube = BABYLON.Mesh.CreateBox("bigCube", 12, scene);
         bigCube.position.y += 6;
@@ -197,17 +205,24 @@ function startBabylonJs(){
         var ground = BABYLON.Mesh.CreateGround("floor", 500, 500, 100, scene);
         ground.checkCollisions = true;
 	//ground.material = im;
+	var tex2 = new BABYLON.StandardMaterial("myMaterial", scene);
+        tex1.bumpTexture = new BABYLON.Texture("textures/ground.jpg", scene);
+        tex2.specularTexture = new BABYLON.Texture("textures/ground.jpg", scene);
+        tex2.emissiveTexture = new BABYLON.Texture("textures/ground.jpg", scene);
+        tex2.ambientTexture = new BABYLON.Texture("textures/ground.jpg", scene);
+        
 	var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
 			     
 			     
-	myMaterial.specularColor = new BABYLON.Color3(0.5, 0., 0.);
-	myMaterial.emissiveColor = new BABYLON.Color3(1, 0, 0);
-	myMaterial.ambientColor = new BABYLON.Color3(0.23, 0.98, 0.53);
-	ground.material = myMaterial;
+	myMaterial.specularColor = new BABYLON.Color3(0., 0., 0.);
+	myMaterial.emissiveColor = new BABYLON.Color3(0., 0, 0.);
+	myMaterial.ambientColor = new BABYLON.Color3(0., 0., 0.);
+	ground.material = tex2;
 	//var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 1, -10));
         //light.diffuse = BABYLON.Color3.White();
 //	light.intensity = .2;
 	var hemi = new BABYLON.HemisphericLight("hLight", BABYLON.Vector3.Zero(), scene);
+	//hemi.intensity=0.8;
 	engine.runRenderLoop(function(){
             //    cube.rotation.x += 0.01;
             //  cube.rotation.y += 0.01;
