@@ -25,14 +25,7 @@ function startBabylonJs(){
 	skyboxMaterial.disableLighting = true;
 	skybox.material = skyboxMaterial;
 
-	  /*var skull = BABYLON.SceneLoader.ImportMesh("", "textures/", "skull.babylon", scene, function (newMeshes) {
-                // Set the target of the camera to the first imported mesh
-                //camera.target = newMeshes[0];
-          });
-	skull.setPositionWithLocalVector(new BABYLON.Vector3(6,-50,50));
-	//skybox.infiniteDistance = true;
 
-	//skyboxMaterial.disableLighting = true;*/
 
 	skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene);
 	skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
@@ -174,6 +167,7 @@ function startBabylonJs(){
             cube.position.y += 1;
             cube.position.x += 50;
             cube.position.z -= 50;
+	    cube.health = 5;
             cubes.push(cube);
         }
         
@@ -195,19 +189,28 @@ function startBabylonJs(){
                 cube.position.x -= 1;
                 cube.position.z += 1;
                 moveCtr++;
-                if(moveCtr === 100){
+                if(moveCtr === 100 && cube.intersectsMesh(base, true)){
                     clearInterval(moveid);
 		    updateStats(health-1,score);
                 }
+		else if(moveCtr == 100 && cube.intersectsMesh(base, false)){
+		    clearInerval(moveid);
+		}
             }, 300);
         }
 
 	function ouch (cube, num){
-	    setInterval(function(){
+	    var pain = setInterval(function(){
 		if(cube.intersectsMesh(cone, true)){
-		    console.log("cube " + num + " says ouch");
+		    cube.health -= 1;
+		    if(cube.health < 1){
+			updateStats(health,score+1);
+			cube.position.y -= 1000;
+			clearInterval(pain);
+		    }
+		    //console.log("cube " + num + " says ouch");
 		}
-	    }, 1000);
+	    }, 3000);
 	}
         
         
@@ -232,11 +235,11 @@ function startBabylonJs(){
 	myMaterial.emissiveColor = new BABYLON.Color3(0., 0, 0.);
 	myMaterial.ambientColor = new BABYLON.Color3(0., 0., 0.);
 	ground.material = tex2;
-	//var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 1, -10));
-        //light.diffuse = BABYLON.Color3.White();
-//	light.intensity = .2;
+	var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 1, -10));
+        light.diffuse = BABYLON.Color3.Red();
+	light.intensity = .5;
 	var hemi = new BABYLON.HemisphericLight("hLight", BABYLON.Vector3.Zero(), scene);
-	//hemi.intensity=0.8;
+	hemi.intensity=0.8;
 	engine.runRenderLoop(function(){
             //    cube.rotation.x += 0.01;
             //  cube.rotation.y += 0.01;
