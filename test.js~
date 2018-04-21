@@ -13,7 +13,7 @@ function startBabylonJs(){
         
         window.addEventListener("resize", function(){
             engine.resize();
-	    });
+        });
 	scene = new BABYLON.Scene(engine);
 	
 
@@ -53,16 +53,6 @@ function startBabylonJs(){
 	output.position.y=25;
 	output.parent = cam;
 	
-	var home = BABYLON.SceneLoader.ImportMesh("", "textures/", "sonic-the-hedgehog.babylon", scene, function (newMeshes) {
-		var Sonic=newMeshes[1];
-		Sonic.scaling = new BABYLON.Vector3(0.4, 0.4, 0.4);
-	       	shadowGenerator.getShadowMap().renderList.push(Sonic);
-		Sonic.position=newBABYLON.Vector3(0,0,0);
-		scene.beginAnimation(Sonic, 73, 100, true, 0.8);
-		// Set the target of the camera to the first imported mesh                                                                             
-                //camera.target = newMeshes[0];                                                                                        
-	    });
-	//home.x=1000;
 
 	var textureResolution = 512;
 	var textureGround = new BABYLON.DynamicTexture("dynamic texture", {width:512, height:180}, scene);   
