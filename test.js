@@ -3,7 +3,10 @@
 var canvas;
 var engine;
 var scene;
-
+var health =100;
+var score =0;
+var WangBucks = 50;
+var towerCount=0;
 document.addEventListener("DOMContentLoaded", startBabylonJs, false);
 
 function startBabylonJs(){
@@ -35,8 +38,7 @@ function startBabylonJs(){
         cam.attachControl(canvas);
 	cam.upperRadiusLimit = 250;
         cam.checkCollisions = true;
-	var health =100;
-	var score =0;
+
 	var stats1="Stats";
 	var stats2 = "Health: " + health;
 	var stats3 = "Score: " + score;
@@ -45,16 +47,26 @@ function startBabylonJs(){
 	output.position.z=70;
 	output.position.y=25;
 	output.parent = cam;
-	
-	var home = BABYLON.SceneLoader.ImportMesh("", "textures/", "sonic-the-hedgehog.babylon", scene, function (newMeshes) {
-		var Sonic=newMeshes[1];
-		Sonic.scaling = new BABYLON.Vector3(0.4, 0.4, 0.4);
-	       	shadowGenerator.getShadowMap().renderList.push(Sonic);
-		Sonic.position=newBABYLON.Vector3(0,0,0);
-		scene.beginAnimation(Sonic, 73, 100, true, 0.8);
+	function newTowerSonic(x,y,z){
+	    var home = BABYLON.SceneLoader.ImportMesh("", "textures/", "sonic-the-hedgehog.babylon", scene, function (newMeshes) {
+		for(var i = 0; i < 15; i++){
+		    var sonic=newMeshes[i];
+		    
+		    sonic.position = new BABYLON.Vector3(x,y,z);
+		}
+		/*
+		  Sonic.scaling = new BABYLON.Vector3(0.4, 0.4, 0.4);
+	       	  shadowGenerator.getShadowMap().renderList.push(Sonic);
+		  Sonic.position=newBABYLON.Vector3(0,0,0);
+		  E	scene.beginAnimation(Sonic, 73, 100, true, 0.8);*/
 		// Set the target of the camera to the first imported mesh                                                                             
-                //camera.target = newMeshes[0];                                                                                        
+		//camera.target = newMeshes[0];                                                                                        
 	    });
+	    towerCount +=1;
+	    WangBucks -= 50;
+	}
+	newTowerSonic(50,1,50);
+	//newTowerSonic(100,1,50);
 	//home.x=1000;
 
 	var textureResolution = 512;
@@ -73,19 +85,21 @@ function startBabylonJs(){
 	var font = "bold 20px monospace";
 
 //	textureGround.drawText(stats1, 20, 70, font, "green", textureGround, true, true);
-	function updateStats(h, s){
+	function updateStats(h, s, d){
 	    health=h;
 	    score=s;
+	    WangBucks = d;
 	    var stats1="Stats";
 	    var stats2 = "Health: " + h;
 	    var stats3 = "Score: " + s;
-	    textureGround.drawText(stats2+"   " +stats3, 20, 50, font, "white", "red", true, true);
+	    var stats4 = " $" + WangBucks;
+	    textureGround.drawText(stats2+"   " +stats3 + stats4, 20, 50, font,
+				   "white", "red", true, true);
 	}
-	health =100;
-	score=0;
-	 var stats = setInterval(function (){
-             updateStats(health, score)
-	     }, 0);
+	updateStats(health, score, WangBucks);
+	 //var stats = setInterval(function (){
+           //  updateStats(health, score,)
+	    // }, 0);
 	//textureGround.drawText(stats3, 20, 120, font, "green", "red", true, true);
 	//output.alpha=0.1;
 
@@ -114,7 +128,12 @@ function startBabylonJs(){
         
         // var plane = BABYLON.MeshBuilder.CreatePlane("plane", {}, scene);
         // plane.applyToMesh(simpleMesh);
-        
+        function changeColor(cube, vec){
+	    var t = new BABYLON.StandardMaterial("myMaterial", scene);
+            t.duffuseColor = vec;
+	    cube.material = t;
+	    
+	}
         var base = BABYLON.Mesh.CreateSphere("base", 16, 25, scene);
         var im = new BABYLON.StandardMaterial("textures/void.jpg", scene);
         base.material = im;
@@ -129,10 +148,10 @@ function startBabylonJs(){
         base.position.z += 50;
         
         var numCube = 30;
-        var cone = BABYLON.MeshBuilder.CreateCylinder("cone", {subdivision:4,arc:1,height:.1,diameter: 100, tessellation: 50}, scene);
-	cone.position.x += 10;
-	cone.position.y = 0 ;
-	cone.position.z+=10;
+        var cone = BABYLON.MeshBuilder.CreateCylinder("cone", {subdivision:4,arc:1,height:.1,diameter: 50, tessellation: 50}, scene);
+	cone.position.x += 0;
+	cone.position.y = 1 ;
+	cone.position.z+=0;
 	cone.alpha=0;
 	var tex1 = new BABYLON.StandardMaterial("myMaterial", scene);
         tex1.bumpTexture = new BABYLON.Texture("textures/ground.png", scene);
@@ -157,17 +176,31 @@ function startBabylonJs(){
         var cubes = [];
 
         for(var i = 0; i < numCube; i++){
-            var cube = BABYLON.Mesh.CreateBox("", 2, scene);
+	    var newHealth = Math.floor(Math.random() * 10);
+	    var size, y, damage;
+	    if (newHealth < 5){
+		size=2;
+		y = 1;
+		damage=1;
+	    }
+	    else if (newHealth >=5){
+		size=5;
+		y=2.5;
+		damage=3;
+	    }
+            var cube = BABYLON.Mesh.CreateBox("", size, scene);
             var tex = new BABYLON.StandardMaterial("myMaterial", scene);
             tex.bumpTexture = new BABYLON.Texture("uganda.jpg", scene);
             tex.specularTexture = new BABYLON.Texture("uganda.jpg", scene);
             tex.emissiveTexture = new BABYLON.Texture("uganda.jpg", scene);
             tex.ambientTexture = new BABYLON.Texture("uganda.jpg", scene);
             cube.material=tex;
-            cube.position.y += 1;
+            cube.position.y += y;
             cube.position.x += 50;
             cube.position.z -= 50;
-	    cube.health = 5;
+	    cube.damage=damage;
+	    cube.health = newHealth;
+
             cubes.push(cube);
         }
         
@@ -184,6 +217,7 @@ function startBabylonJs(){
         
         
         function move (cube){
+	    if(cube.health >0){
             var moveCtr = 0;
             var moveid = setInterval(function(){
                 cube.position.x -= 1;
@@ -191,21 +225,23 @@ function startBabylonJs(){
                 moveCtr++;
                 if(moveCtr === 100 && cube.intersectsMesh(base, true)){
                     clearInterval(moveid);
-		    updateStats(health-1,score);
+		    updateStats(health-cube.damage,score, WangBucks);
                 }
 		else if(moveCtr == 100 && cube.intersectsMesh(base, false)){
-		    clearInerval(moveid);
+		    clearInterval(moveid);
 		}
-            }, 300);
+            }, 200);
+	    }
         }
 
 	function ouch (cube, num){
 	    var pain = setInterval(function(){
 		if(cube.intersectsMesh(cone, true)){
-		    cube.health -= 1;
+		    cube.health -= towerCount;
 		    if(cube.health < 1){
-			updateStats(health,score+1);
-			cube.position.y -= 1000;
+			updateStats(health,score+1, WangBucks+towerCount);
+			cube.position = new BABYLON.Vector3(50,-100,-50);
+			cubes.remove(cube);
 			clearInterval(pain);
 		    }
 		    //console.log("cube " + num + " says ouch");
