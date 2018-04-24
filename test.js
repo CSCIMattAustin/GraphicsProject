@@ -53,6 +53,10 @@ function startBabylonJs(){
 		    var sonic=newMeshes[i];
 		    
 		    sonic.position = new BABYLON.Vector3(x,y,z);
+		    var light = new BABYLON.PointLight("pLight",
+						       new BABYLON.Vector3(x, y+9, z));
+		    light.diffuse = BABYLON.Color3.Red();
+		    light.intensity = .8;
 		}
 		/*
 		  Sonic.scaling = new BABYLON.Vector3(0.4, 0.4, 0.4);
@@ -239,9 +243,8 @@ function startBabylonJs(){
 		if(cube.intersectsMesh(cone, true)){
 		    cube.health -= towerCount;
 		    if(cube.health < 1){
-			updateStats(health,score+1, WangBucks+towerCount);
+			updateStats(health,score+1, WangBucks+10);
 			cube.position = new BABYLON.Vector3(50,-100,-50);
-			cubes.remove(cube);
 			clearInterval(pain);
 		    }
 		    //console.log("cube " + num + " says ouch");
@@ -271,9 +274,9 @@ function startBabylonJs(){
 	myMaterial.emissiveColor = new BABYLON.Color3(0., 0, 0.);
 	myMaterial.ambientColor = new BABYLON.Color3(0., 0., 0.);
 	ground.material = tex2;
-	var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 1, -10));
-        light.diffuse = BABYLON.Color3.Red();
-	light.intensity = .8;
+	//var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 1, -10));
+        //light.diffuse = BABYLON.Color3.Red();
+	//light.intensity = .8;
 	var hemi = new BABYLON.HemisphericLight("hLight", BABYLON.Vector3.Zero(), scene);
 	//hemi.diffuse = BABYLON.Color3.Green();
 	hemi.intensity=0.9;
