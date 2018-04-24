@@ -198,7 +198,7 @@ function startBabylonJs(){
 		}
             }, 300);
         }
-
+	
 	function ouch (cube, num){
 	    var pain = setInterval(function(){
 		if(cube.intersectsMesh(cone, true)){
@@ -237,9 +237,10 @@ function startBabylonJs(){
 	ground.material = tex2;
 	var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 1, -10));
         light.diffuse = BABYLON.Color3.Red();
-	light.intensity = .5;
+	light.intensity = .8;
 	var hemi = new BABYLON.HemisphericLight("hLight", BABYLON.Vector3.Zero(), scene);
-	hemi.intensity=0.8;
+	//hemi.diffuse = BABYLON.Color3.Green();
+	hemi.intensity=0.9;
 	engine.runRenderLoop(function(){
             //    cube.rotation.x += 0.01;
             //  cube.rotation.y += 0.01;
