@@ -9,7 +9,18 @@ var WangBucks = 50;
 var towerCount=0;
 document.addEventListener("DOMContentLoaded", startBabylonJs, false);
 
+
+document.ready
+
 function startBabylonJs(){
+    
+    $('body').append('<button id="button" style="position: absolute; right: 10px; top: 300px; z-index: 400;">Click Me!</button>');
+
+    
+    $('body button').click(function (){
+        newTowerSonic(20, 2, 10);
+    });
+
     if(BABYLON.Engine.isSupported()){
         canvas = document.getElementById("renderCanvas");
         engine = new BABYLON.Engine(canvas, true);
@@ -24,6 +35,8 @@ function startBabylonJs(){
         //     console.log('event.y: ', event.clientY);
         // });
         
+        
+
         var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
         var button = BABYLON.GUI.Button.CreateSimpleButton("btn1", 'Click Me');
@@ -33,6 +46,10 @@ function startBabylonJs(){
         button.top = '45%';
         button.left = '0.5%';
         button.background = "green";
+        // button.onPointerClickObservable.add(function () {
+        //     alert('hi');
+        // })
+
         advancedTexture.addControl(button);
 
 
@@ -117,37 +134,7 @@ function startBabylonJs(){
             "white", "red", true, true);
         }
         updateStats(health, score, WangBucks);
-        //var stats = setInterval(function (){
-        //  updateStats(health, score,)
-        // }, 0);
-        //textureGround.drawText(stats3, 20, 120, font, "green", "red", true, true);
-        //output.alpha=0.1;
-        
-        //	var out=new BABYLON.DynamicTexture("dynamic texture", 2, scene, true);
-        //var context=output.getContext();
-        //	output.material = out;
-        //out.specularColor = new BABYLON.Color3(0, 0, 0);
-        //output.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
-        //output.material.backFaceCulling = false;
-        //out.drawText("TEXT", 10, 10, "bold 140px verdana", "blue","red",true,true);
-        
-        //cam.applyGravity = true;
-        
-        // var assetManager = new BABYLON.AssetsManager(scene);
-        // var knucklesTask = assetManager.addMeshTask("knucklesTask", "", "./", "Knuckles.obj");
-        
-        // knucklesTask.onSuccess = function(task){
-        //     task.loadedMeshes[0].position = BABYLON.Vector3.Zero();
-        // }
-        
-        // knucklesTask.onError = function (task, message, exception){
-        //     console.log(message, exception);
-        // }
-        
-        // var simpleMesh = new BABYLON.Mesh("myMesh", scene);
-        
-        // var plane = BABYLON.MeshBuilder.CreatePlane("plane", {}, scene);
-        // plane.applyToMesh(simpleMesh);
+
         function changeColor(cube, vec){
             var t = new BABYLON.StandardMaterial("myMaterial", scene);
             t.duffuseColor = vec;
@@ -305,49 +292,3 @@ function startBabylonJs(){
     }
     
 }
-
-function CreatePlace(size){
-    var indices = [];
-    var positions= [];
-    var normals = [];
-    var uvs = [];
-    
-    size = size || 1;
-    
-    //Vertices
-    var halfSize = size / 2.0;
-    positions.push(-halfSize, -halfSize, 0);
-    normals.push(0, 0, -1.0);
-    uvs.push(0.0, 0.0);
-    
-    
-    positions.push(halfSize, -halfSize, 0);
-    normals.push(0, 0, -1.0);
-    uvs.push(1.0, 0.0);
-    
-    positions.push(halfSize, halfSize, 0);
-    normals.push(0,0, -1.0);
-    uvs.push(1.0, 1.0);
-    
-    
-    //Indicies
-    indices.push(0);
-    indices.push(1);
-    indices.push(2);
-    
-    indices.push(0);
-    indices.push(2);
-    indices.push(3);
-    
-    var vertexData = new BABYLON.VertexData();
-    
-    vertexData.indices = indices;
-    vertexData.positions = positions;
-    vertexData.normals = normals;
-    vertexData.uvs = uvs;
-    
-    return vertexData;
-    
-    
-}
-
