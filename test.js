@@ -14,10 +14,17 @@ document.ready
 
 function startBabylonJs(){
     
-    $('body').append('<button id="button" style="position: absolute; right: 10px; top: 300px; z-index: 400;">Click Me!</button>');
+    //$('body').append('<button id="button" style="position: absolute; right: 10px; top: 300px; z-index: 400;">Click Me!</button>');
 
     
-   
+   var controls = $('<div id="controls">');
+
+    $(controls).append('<button id="button" style="position: absolute; right: 10px; bottom: 15px; z-index: 400;">Place at x and y</button>');
+    
+    $(controls).append('<input type="text" id="xcoord" style="width: 20px; position: absolute; right: 50px; bottom: 50px; z-index: 200;"/>')
+    $(controls).append('<input type="text" id="ycoord" style="width: 20px; position: absolute; right: 10px; bottom: 50px; z-index: 200;"/>')
+
+    $('body').append($(controls));
 
     if(BABYLON.Engine.isSupported()){
         canvas = document.getElementById("renderCanvas");
@@ -33,8 +40,14 @@ function startBabylonJs(){
         //     console.log('event.y: ', event.clientY);
         // });
         
-        $('body button').click(function (){
-            newTowerSonic(20, 2, 10);
+        $('body #button').click(function (){
+	    if(WangBucks >= 50){
+	        var x = $('#xcoord').val();
+		var y = $('#ycoord').val();
+		console.log('x and y', x + " " + y);
+		newTowerSonic(x, 2, y);
+
+	    }
         });
 
         var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
