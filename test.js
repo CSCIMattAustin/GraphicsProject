@@ -14,18 +14,15 @@ document.ready
 
 function startBabylonJs(){
     
-    //$('body').append('<button id="button" style="position: absolute; right: 10px; top: 300px; z-index: 400;">Click Me!</button>');
-
+    var controls = $('<div id="controls">');
     
-   var controls = $('<div id="controls">');
-
     $(controls).append('<button id="button" style="position: absolute; right: 10px; bottom: 15px; z-index: 400;">Place at x and y</button>');
     
     $(controls).append('<input type="text" id="xcoord" style="width: 20px; position: absolute; right: 50px; bottom: 50px; z-index: 200;"/>')
     $(controls).append('<input type="text" id="ycoord" style="width: 20px; position: absolute; right: 10px; bottom: 50px; z-index: 200;"/>')
-
+    
     $('body').append($(controls));
-
+    
     if(BABYLON.Engine.isSupported()){
         canvas = document.getElementById("renderCanvas");
         engine = new BABYLON.Engine(canvas, true);
@@ -35,45 +32,23 @@ function startBabylonJs(){
         });
         scene = new BABYLON.Scene(engine);
         
-        // canvas.addEventListener('click', function (event){
-        //     console.log('event.x: ', event.clientX);
-        //     console.log('event.y: ', event.clientY);
-        // });
         
         $('body #button').click(function (){
-	    if(WangBucks >= 50){
-	        var x = $('#xcoord').val();
-		var y = $('#ycoord').val();
-		console.log('x and y', x + " " + y);
-		newTowerSonic(x, 2, y);
-
-	    }
+            if(WangBucks >= 50){
+                var x = $('#xcoord').val();
+                var y = $('#ycoord').val();
+                console.log('x and y', x + " " + y);
+                newTowerSonic(x, 2, y);
+                
+            }
         });
-
-        var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-
-        var button = BABYLON.GUI.Button.CreateSimpleButton("btn1", 'Click Me');
-        button.width = "60px";
-        button.height = "40px";
-        button.color = "white";
-        button.top = '45%';
-        button.left = '0.5%';
-        button.background = "green";
-        // button.onPointerClickObservable.add(function () {
-        //     alert('hi');
-        // })
-
-        advancedTexture.addControl(button);
-
-
-        //scene.ambientColor = new BABYLON.Color3(1, 1, 1);
-        //var cam  = new BABYLON.FreeCamera("freecam", new BABYLON.Vector3(0,2, -10), scene);
+        
+        
         var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
         var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
         skyboxMaterial.backFaceCulling = false;
         skyboxMaterial.disableLighting = true;
         skybox.material = skyboxMaterial;
-        
         
         
         skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene);
@@ -103,38 +78,24 @@ function startBabylonJs(){
                     new BABYLON.Vector3(x, y+9, z));
                     light.diffuse = BABYLON.Color3.Red();
                     light.intensity = .8;
-                }
-                /*
-                Sonic.scaling = new BABYLON.Vector3(0.4, 0.4, 0.4);
-                shadowGenerator.getShadowMap().renderList.push(Sonic);
-                Sonic.position=newBABYLON.Vector3(0,0,0);
-                E	scene.beginAnimation(Sonic, 73, 100, true, 0.8);*/
-                // Set the target of the camera to the first imported mesh                                                                             
-                //camera.target = newMeshes[0];                                                                                        
+                }                                                                              
             });
             towerCount +=1;
             WangBucks -= 50;
         }
         newTowerSonic(50,1,50);
-        //newTowerSonic(100,1,50);
-        //home.x=1000;
         
         var textureResolution = 512;
         var textureGround = new BABYLON.DynamicTexture("dynamic texture", {width:512, height:180}, scene);   
         var textureContext = textureGround.getContext();
         
         var materialGround = new BABYLON.StandardMaterial("Mat", scene);    			
-        /*textureGround.bumpTexture = new BABYLON.Texture("uganda.jpg", scene);
-        textureGround.specularTexture = new BABYLON.Texture("uganda.jpg", scene);
-        textureGround.emissiveTexture = new BABYLON.Texture("uganda.jpg", scene);
-        textureGround.ambientTexture = new BABYLON.Texture("uganda.jpg", scene);*/
         materialGround.diffuseTexture = textureGround;
         output.material = materialGround;
         
         //Add text to dynamic texture
         var font = "bold 20px monospace";
         
-        //	textureGround.drawText(stats1, 20, 70, font, "green", textureGround, true, true);
         function updateStats(h, s, d){
             health=h;
             score=s;
@@ -147,7 +108,7 @@ function startBabylonJs(){
             "white", "red", true, true);
         }
         updateStats(health, score, WangBucks);
-
+        
         function changeColor(cube, vec){
             var t = new BABYLON.StandardMaterial("myMaterial", scene);
             t.duffuseColor = vec;
@@ -157,22 +118,22 @@ function startBabylonJs(){
         var base = BABYLON.Mesh.CreateSphere("base", 16, 25, scene);
         var im = new BABYLON.StandardMaterial("textures/void.jpg", scene);
         base.material = im;
-        //im.reflectionTexture.coordinatesMode = BABYLON.Texture.SPHERICAL_MODE;
         im.bumpTexture = new BABYLON.Texture("textures/void.jpg", scene);
         im.specularTexture = new BABYLON.Texture("textures/void.jpg", scene);
         im.emissiveTexture = new BABYLON.Texture("textures/void.jpg", scene);
         im.ambientTexture = new BABYLON.Texture("textures/void.jpg", scene);
-        //im.diffuseTexture.hasAlpha = true;
         base.position.y += 6;
         base.position.x -= 50;
         base.position.z += 50;
         
         var numCube = 30;
+
         var cone = BABYLON.MeshBuilder.CreateCylinder("cone", {subdivision:4,arc:1,height:.1,diameter: 50, tessellation: 50}, scene);
         cone.position.x += 0;
         cone.position.y = 1 ;
         cone.position.z+=0;
         cone.alpha=0;
+
         var tex1 = new BABYLON.StandardMaterial("myMaterial", scene);
         tex1.bumpTexture = new BABYLON.Texture("textures/ground.png", scene);
         tex1.specularTexture = new BABYLON.Texture("textures/ground.png", scene);
@@ -208,6 +169,7 @@ function startBabylonJs(){
                 y=2.5;
                 damage=3;
             }
+            
             var cube = BABYLON.Mesh.CreateBox("", size, scene);
             var tex = new BABYLON.StandardMaterial("myMaterial", scene);
             tex.bumpTexture = new BABYLON.Texture("uganda.jpg", scene);
@@ -262,20 +224,17 @@ function startBabylonJs(){
                         cube.position = new BABYLON.Vector3(50,-100,-50);
                         clearInterval(pain);
                     }
-                    //console.log("cube " + num + " says ouch");
                 }
             }, 3000);
         }
         
         
-        //cube.position.y += 5;
         cube.checkCollisions = true;
         
         
         
         var ground = BABYLON.Mesh.CreateGround("floor", 500, 500, 100, scene);
         ground.checkCollisions = true;
-        //ground.material = im;
         var tex2 = new BABYLON.StandardMaterial("myMaterial", scene);
         tex1.bumpTexture = new BABYLON.Texture("textures/ground.jpg", scene);
         tex2.specularTexture = new BABYLON.Texture("textures/ground.jpg", scene);
@@ -289,16 +248,9 @@ function startBabylonJs(){
         myMaterial.emissiveColor = new BABYLON.Color3(0., 0, 0.);
         myMaterial.ambientColor = new BABYLON.Color3(0., 0., 0.);
         ground.material = tex2;
-        //var light = new BABYLON.PointLight("pLight", new BABYLON.Vector3(5, 1, -10));
-        //light.diffuse = BABYLON.Color3.Red();
-        //light.intensity = .8;
         var hemi = new BABYLON.HemisphericLight("hLight", BABYLON.Vector3.Zero(), scene);
-        //hemi.diffuse = BABYLON.Color3.Green();
         hemi.intensity=0.9;
         engine.runRenderLoop(function(){
-            //    cube.rotation.x += 0.01;
-            //  cube.rotation.y += 0.01;
-            
             scene.render();
         });
         
