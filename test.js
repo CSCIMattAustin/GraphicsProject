@@ -17,9 +17,7 @@ function startBabylonJs(){
     $('body').append('<button id="button" style="position: absolute; right: 10px; top: 300px; z-index: 400;">Click Me!</button>');
 
     
-    $('body button').click(function (){
-        newTowerSonic(20, 2, 10);
-    });
+   
 
     if(BABYLON.Engine.isSupported()){
         canvas = document.getElementById("renderCanvas");
@@ -35,7 +33,9 @@ function startBabylonJs(){
         //     console.log('event.y: ', event.clientY);
         // });
         
-        
+        $('body button').click(function (){
+            newTowerSonic(20, 2, 10);
+        });
 
         var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
