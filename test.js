@@ -104,8 +104,7 @@ function startBabylonJs(){
             var stats2 = "Health: " + h;
             var stats3 = "Score: " + s;
             var stats4 = " $" + WangBucks;
-            textureGround.drawText(stats2+"   " +stats3 + stats4, 20, 50, font,
-            "white", "red", true, true);
+            textureGround.drawText(stats2+"   " +stats3 + stats4, 20, 50, font,"white", "red", true, true);
         }
         updateStats(health, score, WangBucks);
         
@@ -182,7 +181,7 @@ function startBabylonJs(){
             cube.position.z -= 50;
             cube.damage=damage;
             cube.health = newHealth;
-            
+	    cube.number =  i;
             cubes.push(cube);
         }
         
@@ -207,9 +206,22 @@ function startBabylonJs(){
                     if(moveCtr === 100 && cube.intersectsMesh(base, true)){
                         clearInterval(moveid);
                         updateStats(health-cube.damage,score, WangBucks);
+			if (health > 0 && cube.number == numCube-1){
+			    textureGround.drawText("You Win!!!", 20, 50, font,"white", "red", true, true);
+			}
+			if (health <= 0 && cube.number === numCube-1){
+			    textureGround.drawText("You Lose!!!", 20, 50, font,"white", "red", true, true);
+			}
+			    
                     }
                     else if(moveCtr == 100 && cube.intersectsMesh(base, false)){
                         clearInterval(moveid);
+			if (health > 0 && cube.number === numCube-1){
+			    textureGround.drawText("You Win!!!", 20, 50, font,"white", "red", true, true);
+			}
+			if (health <= 0 && cube.number === numCube-1){
+			    textureGround.drawText("You Lose!!!", 20, 50, font,"white", "red", true, true);
+			}
                     }
                 }, 200);
             }
